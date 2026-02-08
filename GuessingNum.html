@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="./image/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./image/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./image/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="./image/favicon_io/site.webmanifest">
+    <title>Document</title>
+    <style>
+      @font-face {
+        font-family:sofia;
+        src: url(./font/Sofia-Regular.ttf) format("woff");
+      }
+      .body{
+        overflow: hidden;
+        background-image: linear-gradient(rgb(198, 210, 195),rgb(255, 255, 255),rgb(88, 85, 86));height:100vh;
+      }
+      .faded{
+        background-color: rgba(50, 14, 78, 0.77);
+        animation: ato 1.7s alternate;
+      }
+      .modal-title{
+        color: rgb(96, 18, 170);
+      }
+      .modal-body input{
+        color: rgb(255, 72, 17);
+        font-size: 22px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      }
+      .fullBrand::first-letter{
+        color: rgb(205, 25, 100);
+      }
+      span:not(span[id="changer"]){
+        color: rgb(205, 25, 100);
+      }
+      .stands{
+        font-weight: 800;
+        text-align: center;
+        font-size: 90px;
+        background-image: url("./image/Zugpsitze_mountain.jpg");
+        background-size: cover;
+        background-position: 73% 19%;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0px 0px 14px rgba(232, 20, 186, 0.152);
+        animation: animate 10000s linear infinite;
+      }
+      @keyframes animate {
+        to {
+          background-position-x:1000000px ;
+        }
+      }
+      #guessField{
+        width: 40vw;
+        height:50px;
+        box-shadow: none;
+        margin: auto;
+        font-size: 27px;
+        transition: all 0.1s linear;
+        background:radial-gradient(rgb(253, 253, 255),rgb(204, 204, 204));
+        perspective: 1500px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      }
+      #guessField:focus{
+        transform: translateX(-3px) translateY(-3px);
+        box-shadow:3px 3px 1px grey;
+        outline: none;
+        color: rgb(44, 42, 42);
+      }
+      .changingBGC{
+        animation: changingBC 1s infinite;
+      }
+      @keyframes changingBC{
+        0%{background-color: rgb(5, 255, 5);}
+        25%{background-color: rgb(31, 196, 31);}
+        50%{background-color: rgb(34, 171, 34);}
+        100%{background-color: rgb(30, 105, 30);}
+      }
+      .a{
+        display: inline-block;
+        box-shadow:9px 9px 4px rgb(126, 118, 118);;
+        animation:atoa 2s alternate;
+        background-color: rgb(222, 221, 221);
+        padding: 8px 10px;
+      }
+      .a span{
+        color: rgb(245, 17, 17) !important;
+        font-size:34px;
+        font-weight: 700;
+        animation: fadeIn 6s alternate;
+      }
+      @keyframes fadeIn{
+        0%{opacity:0.0;}
+        25%{opacity:0.0;}
+        50%{opacity:0.0;}
+        75%{opacity:0.2;}
+        100%{opacity:1;}
+      }
+      .words{
+        animation: word 1.5s alternate;
+      }
+      @keyframes word{
+        0%{letter-spacing:70px;}
+        25%{opacity:50px;}
+        50%{opacity:30px;}
+        75%{opacity:10px;}
+        100%{opacity:2px;}
+      }
+      h3{
+        position: absolute;
+        top: 90%;
+        left:45.6%;
+        font-size: 20px;
+        font-family: sofia;
+        opacity: 0.8;
+        color: rgb(42, 40, 40);
+      }
+      @media only screen and (max-width:500px) {
+        .modal{
+          padding: 30px 50px 30px 30px;
+        }
+        h3{
+          top: 90%;
+          left:32%;
+        }
+        #guessField{
+          width: 60%;
+        }
+      }
+      .high-guess{
+        font-weight: 700;
+        color: rgb(222, 19, 19) !important;
+      }
+      .low-guess{
+        font-weight: 700;
+        color: rgb(13, 189, 178) !important;      
+      }
+    </style>
+  </head>
+  <body class="body">
+    <div class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Welcome to NGG</h5>
+            <button type="button" class="btn-close closed" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <label for="recipient-name" class="col-form-label">Enter Your Name:</label>
+            <input type="text" class="form-control namevalue" id="recipient-name" autocomplete="off">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary closed getname">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <audio class="looser" src="./voice/MediaBaz.net-Game - 02.mp3"></audio>
+    <audio class="Winner" src="./voice/ta-da-brass-ensemble-fast-soundroll-1-00-01.mp3"></audio>
+    <h1 class="text-center text-primary fullBrand" style="margin-top: 40px;">Number <span>G</span>uessing <span>G</span>ame<br />
+    </h1>
+    <h1 class="stands">(NGG)</h1>
+    <p id="para" class="text-center" style="font-size: 20px; margin-top: 30px; margin-bottom: 50px">
+      <!--! I Use em Tag in Here -->
+      <em>You should choose a number between 1 to 100</em>
+    </p>
+    <div id="divi" class="form row text-center">
+      <label for="guessField"><ins>Enter Your Number</ins></label>
+      <input
+        type="number"
+        id="guessField"
+        class="guessField mt-2 form-control"
+        style="text-align: center"
+      />
+      <input
+        type="submit"
+        id="subField"
+        value="Submit"
+        class="btn btn-outline-success mt-3 guessSubmit"
+        accesskey="c"
+        onclick="checkGeuss()"
+      />
+    </div>
+    <br />
+    <!-- for showing result -->
+    <p style="margin-left: 29px" id="demo1"></p>
+    <p style="margin-left: 29px" id="demo2"></p>
+    <p style="margin-left: 29px" id="demo3"></p>
+    <h3>made by Pouyan</h3>
+
+    <script src="./bootstrap.bundle.min.js"></script>
+    <script>
+      (function(){
+        let modal = document.querySelector(".modal");
+        modal.style.display = "block";
+        modal.classList.add("faded")
+        let btnClose = document.querySelectorAll(".closed");
+        btnClose.forEach( item => {
+          item.addEventListener("click",() => {
+          modal.style.display = "none"
+          })
+        })
+      })();
+
+      let getNameBtn = document.querySelector(".getname");
+      getNameBtn.addEventListener("click",() => {
+        nameValue = document.querySelector(".namevalue").value;
+      })
+      const Num = Math.floor(Math.random() * 100);
+      var subField = document.querySelector("#subField")
+      var guessField = document.querySelector("#guessField");
+      let chance = 5;
+      let para = document.getElementById("para");
+      let divi = document.getElementById("divi");
+
+      let a = document.getElementById("demo1");
+      let b = document.getElementById("demo2");
+      let c = document.getElementById("demo3");
+
+      // just for showing previous guesses
+      let guessCount = 1;
+      //-----------------------------
+
+      guessField.addEventListener('keydown',(event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault()
+          checkGeuss()
+        }
+      })
+
+      function checkGeuss() {
+
+        //check for not empty
+        if (guessField.value === "") {
+          return;
+        }
+
+        let Guess = parseInt(guessField.value);
+
+        let guessSpan = document.createElement("span");
+        guessSpan.textContent= Guess + ", "
+
+        a.style.color = "rgb(56, 0, 105)";
+        a.style.fontSize = "18px";
+      // just for showing previous guesses
+        if(guessCount == 1)
+        {
+          a.innerHTML = "your Guesses were: ";
+        }        
+        debugger
+        if (Guess > Num) {
+          guessSpan.classList.add("high-guess")
+        }
+        else if (Guess < Num){
+          guessSpan.classList.add("low-guess")
+        }
+
+        a.appendChild(guessSpan)
+        
+        // a.innerHTML += `<span id="changer">${Guess}. </span>`
+      //-----------------------------
+
+        if (Guess == Num) {
+          function SoundH(){
+            let vv = document.querySelector(".Winner");
+            vv.play();
+          }
+          SoundH();
+          // *When player Win*
+          a.remove();
+          b.remove();
+          c.remove();
+          if(chance == 1)
+          {
+           a.innerHTML = "( $ _ $ )";
+          }    
+          guessField.style.fontSize = "33px"
+          guessField.style.fontWeight = "800"
+          guessField.style.color = "rgb(207, 35, 255)"
+          /**
+           *! To Use This clear the line 169 
+           ** guessField.style.outline = "4px solid green" 
+          */
+          guessField.style.backgroundColor = "rgb(3, 247, 238)"
+          guessField.style.background = "url(./image/Zugpsitze_mountain.jpg) center/cover"
+          subField.style.display = "none"
+          setTimeout(() => {
+            guessField.style.outline = "none"
+          }, 3000);
+
+          // Creating an Element to show player has won the game
+
+          let div = document.createElement("div");
+          div.style.backgroundColor = "green";
+          div.style.textAlign = "center";
+          let txt = document.createTextNode(
+            "Thaaaaaaaaaaaat's It! " + nameValue + " Win🏆"
+          );
+          div.appendChild(txt);
+          // let body =document.querySelector("body");
+          // body.appendChild(div);
+          // if you wanna uncomment these 3comments, remove the line below
+          let body = document.body.appendChild(div);
+          body.style.fontFamily =
+            "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif";
+          body.style.fontSize = "24px";
+          body.style.fontFamily = "fantasy";
+          body.style.letterSpacing = "3px";
+          body.style.marginTop = "10px"
+          body.style.color = "antiquewhite";
+          body.style.padding = "28px";
+          body.classList.add("changingBGC");
+          // body.insertBefore(div,a);
+
+          // -----------------------------------------------------
+        } else {
+          //when player do not win and still continue the game
+          chance--;
+          // b is an info for showing remaining chance
+          b.innerHTML = "you have " + chance + " Chance";
+          b.style.fontSize = "18px";
+          // auto clear to write faster
+          guessField.value = "";
+          //for showing an alert which you are wrong.
+
+          if(chance <= 0) {
+            c.remove()
+            function SoundH() {
+              let vv = document.querySelector(".looser");
+              vv.play();
+            }
+            SoundH();
+            //When player lost his chance and lose!
+            para.remove();
+            divi.remove();
+            a.classList.add("a")
+            a.innerHTML = "Correct Number Was: " + "<span>"+ Num + "</span>";
+            a.style.fontSize = "29px";
+            b.innerHTML = "You have NO chance";
+            b.style.color = "red";
+            b.style.backgroundColor = "transparent";
+            b.style.fontSize = "18px";
+            b.style.textAlign = "left";
+            b.style.outline = "none";
+            b.style.marginLeft = "29px";
+            //how can we seprate things from texts:
+            // let getNum = a.innerHTML.split(" ").find(number => number.match(/\d/g));
+            // console.log(getNum);
+
+            // Creating an Element to show player is a looser
+            let div = document.createElement("div");
+            div.style.backgroundColor = "rgb(188, 9, 9)";
+            div.style.textAlign = "center";
+            div.style.color = "white";
+            let txt = document.createTextNode(nameValue + " Looooose!");
+            div.appendChild(txt);
+            let body = document.body.appendChild(div);
+            body.style.fontFamily =
+              "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif";
+            body.style.fontSize = "33px";
+            body.style.padding = "18px";
+            body.classList.add("words");
+          }
+          if(chance == 1) {
+            //When player has only one chance
+            if(Guess < Num) {
+              let c = document.getElementById("demo3");
+              c.innerHTML = "your guess is Low";
+              c.style.color = "rgb(12, 12, 186)";
+              c.style.fontSize = "27px";
+            } else if (Guess > Num) {
+              let c = document.getElementById("demo3");
+              c.innerHTML = "your guess is High";
+              c.style.color = "rgb(121, 13, 13)";
+              c.style.fontSize = "27px";
+            }
+            // for showing you have only on chance,alerting!
+            b.innerHTML = nameValue + "!" + " You Have Only " + chance + " Chance!";
+            b.style.textAlign = "center";
+            b.style.marginLeft = "0px";
+            b.style.outline = "3px solid black";
+            b.style.borderRadius = "4px";
+            b.style.backgroundColor = "rgb(185, 13, 13)";
+            b.style.padding = "9px";
+            b.style.fontSize = "29px";
+            b.style.color = "antiquewhite";
+          }
+          // we should write these two first but we get problem
+
+          if(Guess < Num) {
+            // when player guess is under the correct number
+            let c = document.getElementById("demo3");
+            c.innerHTML = "your guess is Low";
+            c.style.color = "rgb(12, 12, 186)";
+            c.style.fontSize = "27px";
+            guessField.style.outline = "4px solid rgb(82, 177, 214)";
+            guessField.style.opacity = "1";
+            setTimeout(() => {
+            guessField.style.outline = "none"
+            }, 2000);
+          }else if(Guess > Num) {
+            // when player guess is higher than correct number
+            c.innerHTML = "your guess is High";
+            c.style.color = "rgb(121, 13, 13)";
+            c.style.fontSize = "27px";
+            guessField.style.outline = "4px solid rgb(234, 21, 21)";
+            guessField.style.opacity = "1";
+            setTimeout(() => {
+            guessField.style.outline = "none"
+            }, 2000);
+          }
+        }
+        guessField.focus();
+        guessCount++;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+{
+    "editor.defaultFoldingRangeProvider": "aaron-bond.better-comments",
+    "editor.defaultFormatter": "aaron-bond.better-comments",
+    "liveServer.settings.port": 5501
+}
