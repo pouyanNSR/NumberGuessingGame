@@ -3,185 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./bootstrap.min.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="./image/favicon_io/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./image/favicon_io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./image/favicon_io/favicon-16x16.png">
-    <link rel="manifest" href="./image/favicon_io/site.webmanifest">
+    <link rel="stylesheet" href="./bootstrap.min.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./image/favicon_io/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./image/favicon_io/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./image/favicon_io/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./image/favicon_io/site.webmanifest" />
+    <link rel="stylesheet" href="style.css" />
     <title>Document</title>
-    <style>
-      *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      @font-face {
-        font-family:sofia;
-        src: url(./font/Sofia-Regular.ttf) format("woff");
-      }
-      .body{
-        overflow: hidden;
-        background-image: linear-gradient(rgb(198, 210, 195),rgb(255, 255, 255),rgb(88, 85, 86));
-        height:100vh;
-      }
-      .faded{
-        background-color: rgba(50, 14, 78, 0.77);
-        animation: ato 1.7s alternate;
-      }
-      .modal-title{
-        color: rgb(96, 18, 170);
-      }
-      .modal-body input{
-        color: #ff4811;
-        font-size: 22px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-      }
-      .full-brand{
-        font-weight: 500;
-        font-size: 50px;
-        margin: 0;
-      }
-      .full-brand::first-letter{
-        color: rgb(205, 25, 100);
-      }
-      .stands{
-        font-weight: 800;
-        text-align: center;
-        font-size: 90px;
-        background-image: url("./image/Zugpsitze_mountain.jpg");
-        background-size: cover;
-        background-position: 73% 19%;
-        background-clip: text;
-        color: transparent;
-        text-shadow: 0px 0px 14px rgba(232, 20, 186, 0.152);
-        animation: animate 10000s linear infinite;
-      }
-      @keyframes animate {
-        to {
-          background-position-x:1000000px ;
-        }
-      }
-      #rule-para{
-        font-size: 20px; 
-        margin-top: 20px; 
-        margin-bottom: 20px;
-        color: rgb(93, 91, 91);
-        text-shadow: -3px 3px 8px rgb(130, 124, 124);
-      }
-      #guess-field{
-        width: 40vw;
-        height:50px;
-        box-shadow: none;
-        margin: auto;
-        font-size: 32px;
-        font-weight: 600;
-        transition: all 0.1s linear;
-        background:radial-gradient(rgb(253, 253, 255),rgb(204, 204, 204));
-        perspective: 1500px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-      }
-      #guess-field:focus{
-        transform: translateX(-3px) translateY(-3px);
-        box-shadow:3px 3px 1px grey;
-        outline: none;
-        color: rgb(44, 42, 42);
-      }
-      .changingBGC{
-        animation: changingBC 1s infinite;
-      }
-      @keyframes changingBC{
-        0%{background-color: rgb(5, 255, 5);}
-        25%{background-color: rgb(31, 196, 31);}
-        50%{background-color: rgb(34, 171, 34);}
-        100%{background-color: rgb(30, 105, 30);}
-      }
-      .showRealNum{
-        display: inline-block;
-        box-shadow:9px 9px 4px rgb(126, 118, 118);;
-        animation:atoa 2s alternate;
-        background-color: rgb(222, 221, 221);
-        padding: 8px 10px;
-      }
-      .showRealNum span{
-        color: rgb(245, 17, 17) !important;
-        font-size:34px;
-        font-weight: 700;
-        animation: fadeIn 6s alternate;
-      }
-      @keyframes fadeIn{
-        0%{opacity:0.0;}
-        25%{opacity:0.0;}
-        50%{opacity:0.0;}
-        75%{opacity:0.2;}
-        100%{opacity:1;}
-      }
-      .words{
-        animation: word 1.5s alternate;
-      }
-      @keyframes word{
-        0%{letter-spacing:70px;}
-        25%{opacity:50px;}
-        50%{opacity:30px;}
-        75%{opacity:10px;}
-        100%{opacity:2px;}
-      }
-      h3{
-        position: absolute;
-        top: 90%;
-        left:45.6%;
-        font-size: 20px;
-        font-family: sofia;
-        opacity: 0.8;
-        color: rgb(42, 40, 40);
-      }
-      @media only screen and (max-width:500px) {
-        .modal{
-          padding: 30px 50px 30px 30px;
-        }
-        h3{
-          top: 90%;
-          left:32%;
-        }
-        #guess-field{
-          width: 60%;
-        }
-      }
-      .high-guess{
-        font-weight: 700;
-        color: rgb(222, 19, 19) !important;
-      }
-      .low-guess{
-        font-weight: 700;
-        color: rgb(13, 189, 178) !important;      
-      }
-      .reset{
-        display: flex;
-        justify-content: center;
-        margin-top: 30px;
-      }
-      #reset-btn{
-        display: none;
-        padding: 8px 13px ;
-        border: 3.3px solid rgb(236, 81, 81);
-        color: rgb(220, 227, 234);
-        background: rgb(175, 23, 41);
-        font-size: 21px;
-        border-radius: 12px;
-        text-shadow: 0 0 3px whitesmoke;
-        box-shadow: 0 0 5px 4px inset rgb(65, 4, 3);
-        transition: all 0.27s ease;
-      }
-      #reset-btn:hover{
-        box-shadow:none;
-        text-shadow: 0 0 1.5px whitesmoke;
-        filter: contrast(160%);
-        transform: scale(1.3);
-      }      
-      #reset-btn:active{
-        background-color:rgb(203, 74, 51);
-      }
-    </style>
   </head>
   <body class="body">
     <div class="modal">
@@ -189,20 +31,37 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title fw-bold">Welcome to NGG</h5>
-            <button type="button" class="btn-close closed" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close closed"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body">
-            <label for="player-name" class="col-form-label">Enter Your Name:</label>
-            <input type="text" class="form-control fw-bold name-input" id="player-name" autocomplete="off">
+            <label for="player-name" class="col-form-label"
+              >Enter Your Name:</label
+            >
+            <input
+              type="text"
+              class="form-control fw-bold name-input"
+              id="player-name"
+              autocomplete="off"
+            />
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary closed getname">Save</button>
+            <button type="button" class="btn btn-primary closed getname">
+              Save
+            </button>
           </div>
         </div>
       </div>
     </div>
     <audio class="looser" src="./voice/MediaBaz.net-Game - 02.mp3"></audio>
-    <audio class="Winner" src="./voice/ta-da-brass-ensemble-fast-soundroll-1-00-01.mp3"></audio>
+    <audio
+      class="Winner"
+      src="./voice/ta-da-brass-ensemble-fast-soundroll-1-00-01.mp3"
+    ></audio>
     <div class="d-flex justify-content-center mt-2 gap-2 text-primary">
       <p class="full-brand">Number</p>
       <p class="full-brand">Gussing</p>
@@ -231,11 +90,12 @@
     </div>
     <br />
     <!-- for showing result -->
-    <p style="margin-left: 29px" id="guess-history"></p>
-    <p style="margin-left: 29px" id="guess-counter"></p>
-    <p style="margin-left: 29px" id="result-teller"></p>
+    <div class="para-container ">
+      <p  id="guess-history"></p>
+      <p id="guess-counter"></p>
+      <p id="result-teller"></p>
+    </div>
     <div class="reset">
-      
       <button id="reset-btn" onclick="reset()">Try Again!</button>
     </div>
     <h3>made by Pouyan</h3>
@@ -247,10 +107,11 @@
       let getNameBtn = document.querySelector(".getname");
       debugger;
       const Num = Math.floor(Math.random() * 100);
-      let subField = document.querySelector("#subField")
+      let subField = document.querySelector("#subField");
       let guessField = document.querySelector("#guess-field");
       let chance = 5;
       let rulePara = document.getElementById("rule-para");
+      let paraContainer = document.querySelector(".para-container");
       let inputContainer = document.getElementById("input-container");
 
       let guessHistory = document.getElementById("guess-history");
@@ -258,69 +119,67 @@
       let resultTeller = document.getElementById("result-teller");
       let winnerAudio = document.querySelector(".Winner");
       let resetBtn = document.getElementById("reset-btn");
-      let nameInput = document.querySelector(".name-input")
-      
+      let nameInput = document.querySelector(".name-input");
+
       // just for showing previous guesses
       let guessCount = 1;
 
-      (function(){
+      (function () {
         modal.style.display = "block";
         modal.classList.add("faded");
-        nameInput.focus()
-        btnClose.forEach( item => {
-          item.addEventListener("click",() => {
-          modal.style.display = "none"
-          })
-        })
+        nameInput.focus();
+        btnClose.forEach((item) => {
+          item.addEventListener("click", () => {
+            modal.style.display = "none";
+          });
+        });
       })();
-      
+
       //close the modal with saving player name
-      getNameBtn.addEventListener("click",() => {
+      getNameBtn.addEventListener("click", () => {
         nameValue = nameInput.value;
-      })
-      modal.addEventListener('keydown',(event) => {
-        if (event.key === 'Enter') {
+      });
+      modal.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
           event.preventDefault();
-          modal.style.display="none";
+          modal.style.display = "none";
           nameValue = nameInput.value;
         }
-      })
+      });
 
-      guessField.addEventListener('keydown',(event) => {
-        if (event.key === 'Enter') {
-          event.preventDefault()
-          checkGeuss()
+      guessField.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          checkGeuss();
         }
-      })
+      });
 
       function checkGeuss() {
-
         //check for empty guess
         if (guessField.value === "") {
           return;
         }
+        paraContainer.classList.add("para-container-styles")
 
         let Guess = parseInt(guessField.value);
 
         let guessSpan = document.createElement("span");
-        guessSpan.textContent= Guess + ", "
+        guessSpan.textContent = Guess + ", ";
 
         guessHistory.style.color = "rgb(56, 0, 105)";
         guessHistory.style.fontSize = "18px";
 
         // just for showing previous guesses with understandable colors
-        if(guessCount == 1)
-        {
+        if (guessCount == 1) {
           guessHistory.innerHTML = "your Guesses were: ";
-        }     
+        }
         if (Guess > Num) {
-          guessSpan.classList.add("high-guess")
+          guessSpan.classList.add("high-guess");
+        } else if (Guess < Num) {
+          guessSpan.classList.add("low-guess");
         }
-        else if (Guess < Num){
-          guessSpan.classList.add("low-guess")
-        }
-        guessHistory.appendChild(guessSpan)
-        
+        guessHistory.appendChild(guessSpan);
+
         //an other way to do that
         // guessHistory.innerHTML += `<span id="changer">${Guess}. </span>`
 
@@ -329,18 +188,20 @@
         if (Guess == Num) {
           // *When player Win*
           winnerAudio.play();
-          guessHistory.remove();
-          guessCounter.remove();
-          resultTeller.remove();
+          guessHistory.style.display = "none";
+          guessCounter.style.display = "none";
+          resultTeller.style.display = "none";
 
-          guessField.style.fontSize = "33px"
-          guessField.style.fontWeight = "800"
-          guessField.style.color = "rgb(207, 35, 255)"
-          guessField.style.backgroundColor = "rgb(3, 247, 238)"
-          guessField.style.background = "url(./image/Zugpsitze_mountain.jpg) center/cover"
-          subField.style.display = "none"
+          guessField.style.fontSize = "33px";
+          guessField.style.fontWeight = "800";
+          guessField.style.textShadow = "0 0 3px black";
+          guessField.style.color = "#ffafcb";
+          guessField.style.backgroundColor = "rgb(3, 247, 238)";
+          guessField.style.background =
+            "url(./image/Zugpsitze_mountain.jpg) center/cover";
+          subField.style.display = "none";
           setTimeout(() => {
-            guessField.style.outline = "none"
+            guessField.style.outline = "none";
           }, 3000);
 
           // Creating a div to show player has won the game
@@ -359,37 +220,39 @@
           div.style.fontSize = "24px";
           div.style.fontFamily = "fantasy";
           div.style.letterSpacing = "3px";
-          div.style.marginTop = "50px"
+          div.style.marginTop = "50px";
           div.style.color = "antiquewhite";
           div.style.padding = "28px";
           div.classList.add("changingBGC");
-          guessField.insertAdjacentElement("afterend",div)
+          guessField.insertAdjacentElement("afterend", div);
           // guessField.setAttribute(disabled)
-
 
           // -----------------------------------------------------
         } else {
           //when player do not win and still continue the game
           chance--;
           // guessCounter is an info for showing remaining chance
-          guessCounter.innerHTML = "you have " + chance + " Chance";
+          guessCounter.innerHTML = `<p> you have <span style="color:red">${chance}</span> Chance </p>`;
           guessCounter.style.fontSize = "18px";
           // auto clear to write faster
           guessField.value = "";
           //for showing an alert which you are wrong.
 
-          if(chance <= 0) {
-            resultTeller.remove()
+          if (chance <= 0) {
+            resultTeller.style.display = "none";
+            paraContainer.classList.remove("para-container-styles")
+            paraContainer.classList.add("loose-scene")
             function SoundH() {
               let vv = document.querySelector(".looser");
               vv.play();
             }
             SoundH();
             //When player lost his chance ,user lose!
-            rulePara.remove();
-            inputContainer.remove();
-            guessHistory.classList.add("showRealNum")
-            guessHistory.innerHTML = "Correct Number Was: " + "<span>"+ Num + "</span>";
+            rulePara.style.display = "none";
+            inputContainer.style.display = "none";
+            guessHistory.classList.add("showRealNum");
+            guessHistory.innerHTML =
+              "Correct Number Was: " + "<span>" + Num + "</span>";
             guessHistory.style.fontSize = "29px";
             guessCounter.innerHTML = "You have NO chance";
             guessCounter.style.color = "red";
@@ -411,13 +274,13 @@
             div.style.fontSize = "33px";
             div.style.padding = "18px";
             div.classList.add("words");
-            guessCounter.insertAdjacentElement("afterend",div)
+            guessCounter.insertAdjacentElement("afterend", div);
 
-            resetBtn.style.display="block"
+            resetBtn.style.display = "block";
           }
-          if(chance == 1) {
+          if (chance == 1) {
             //When player has only one chance
-            if(Guess < Num) {
+            if (Guess < Num) {
               let resultTeller = document.getElementById("result-teller");
               resultTeller.innerHTML = "your guess is Low";
               resultTeller.style.color = "rgb(12, 12, 186)";
@@ -429,7 +292,8 @@
               resultTeller.style.fontSize = "27px";
             }
             // for showing you have only on chance,alerting!
-            guessCounter.innerHTML = nameValue + "!" + " You Have Only " + chance + " Chance!";
+            guessCounter.innerHTML =
+              nameValue + "!" + " You Have Only " + chance + " Chance!";
             guessCounter.style.textAlign = "center";
             guessCounter.style.marginLeft = "0px";
             guessCounter.style.outline = "3px solid black";
@@ -441,7 +305,7 @@
           }
           // we should write these two first but we get problem
 
-          if(Guess < Num) {
+          if (Guess < Num) {
             // when player guess is under the correct number
             let resultTeller = document.getElementById("result-teller");
             resultTeller.innerHTML = "your guess is Low";
@@ -450,9 +314,9 @@
             guessField.style.outline = "4px solid rgb(82, 177, 214)";
             guessField.style.opacity = "1";
             setTimeout(() => {
-            guessField.style.outline = "none"
+              guessField.style.outline = "none";
             }, 2000);
-          }else if(Guess > Num) {
+          } else if (Guess > Num) {
             // when player guess is higher than correct number
             resultTeller.innerHTML = "your guess is High";
             resultTeller.style.color = "rgb(121, 13, 13)";
@@ -460,7 +324,7 @@
             guessField.style.outline = "4px solid rgb(234, 21, 21)";
             guessField.style.opacity = "1";
             setTimeout(() => {
-            guessField.style.outline = "none"
+              guessField.style.outline = "none";
             }, 2000);
           }
         }
@@ -468,9 +332,9 @@
         guessCount++;
       }
       function reset() {
-        setTimeout(()=>{
-          location.reload()
-        },400)
+        setTimeout(() => {
+          location.reload();
+        }, 400);
       }
     </script>
   </body>

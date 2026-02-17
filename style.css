@@ -1,0 +1,222 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: sofia;
+  src: url(./font/Sofia-Regular.ttf) format("woff");
+}
+.body {
+  overflow: hidden;
+  background-image: linear-gradient(
+    rgb(198, 210, 195),
+    rgb(255, 255, 255),
+    rgb(88, 85, 86)
+  );
+  height: 100vh;
+}
+.faded {
+  background-color: rgba(50, 14, 78, 0.77);
+  animation: ato 1.7s alternate;
+}
+.modal-title {
+  color: rgb(96, 18, 170);
+}
+.modal-body input {
+  color: #ff4811;
+  font-size: 22px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.full-brand {
+  font-weight: 500;
+  font-size: 50px;
+  margin: 0;
+}
+.full-brand::first-letter {
+  color: rgb(205, 25, 100);
+}
+.stands {
+  font-weight: 800;
+  text-align: center;
+  font-size: 90px;
+  background-image: url("./image/Zugpsitze_mountain.jpg");
+  background-size: cover;
+  background-position: 73% 19%;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0px 0px 14px rgba(232, 20, 186, 0.152);
+  animation: animate 10000s linear infinite;
+}
+@keyframes animate {
+  to {
+    background-position-x: 1000000px;
+  }
+}
+#rule-para {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: rgb(93, 91, 91);
+  text-shadow: -3px 3px 8px rgb(130, 124, 124);
+}
+#guess-field {
+  width: 40vw;
+  height: 50px;
+  box-shadow: none;
+  margin: auto;
+  font-size: 32px;
+  font-weight: 600;
+  transition: all 0.1s linear;
+  background: radial-gradient(rgb(253, 253, 255), rgb(204, 204, 204));
+  perspective: 1500px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+#guess-field:focus {
+  transform: translateX(-3px) translateY(-3px);
+  box-shadow: 3px 3px 1px grey;
+  outline: none;
+  color: rgb(44, 42, 42);
+}
+.changingBGC {
+  animation: changingBC 1s infinite;
+}
+@keyframes changingBC {
+  0% {
+    background-color: rgb(5, 255, 5);
+  }
+  25% {
+    background-color: rgb(31, 196, 31);
+  }
+  50% {
+    background-color: rgb(34, 171, 34);
+  }
+  100% {
+    background-color: rgb(30, 105, 30);
+  }
+}
+.para-container-styles{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    margin-left: 40px;
+    border-left: 3px solid rgb(170, 16, 16);
+    padding: 3px 20px;
+}
+.para-container-styles p{
+    padding: 0;
+    margin: 0;
+}
+.loose-scene p:not(:last-child){
+    margin-left: 20px;
+}
+
+.para-container p:last-child{
+}
+.showRealNum {
+  display: inline-block;
+  box-shadow: 9px 9px 4px rgb(126, 118, 118);
+  animation: atoa 2s alternate;
+  background-color: rgb(222, 221, 221);
+  padding: 8px 10px;
+}
+.showRealNum span {
+  color: rgb(245, 17, 17) !important;
+  font-size: 34px;
+  font-weight: 700;
+  animation: fadeIn 6s alternate;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.words {
+  animation: word 1.5s alternate;
+}
+@keyframes word {
+  0% {
+    letter-spacing: 70px;
+  }
+  25% {
+    opacity: 50px;
+  }
+  50% {
+    opacity: 30px;
+  }
+  75% {
+    opacity: 10px;
+  }
+  100% {
+    opacity: 2px;
+  }
+}
+h3 {
+  position: absolute;
+  top: 90%;
+  left: 45.6%;
+  font-size: 20px;
+  font-family: sofia;
+  opacity: 0.8;
+  color: rgb(42, 40, 40);
+}
+@media only screen and (max-width: 500px) {
+  .modal {
+    padding: 30px 50px 30px 30px;
+  }
+  h3 {
+    top: 90%;
+    left: 32%;
+  }
+  #guess-field {
+    width: 60%;
+  }
+}
+.high-guess {
+  font-weight: 700;
+  color: rgb(222, 19, 19) !important;
+}
+.low-guess {
+  font-weight: 700;
+  color: rgb(13, 189, 178) !important;
+}
+.reset {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+#reset-btn {
+  display: none;
+  padding: 8px 13px;
+  border: 3.3px solid rgb(236, 81, 81);
+  color: rgb(220, 227, 234);
+  background: rgb(175, 23, 41);
+  font-size: 21px;
+  border-radius: 12px;
+  text-shadow: 0 0 3px whitesmoke;
+  box-shadow: 0 0 5px 4px inset rgb(65, 4, 3);
+  transition: all 0.27s ease;
+}
+#reset-btn:hover {
+  box-shadow: none;
+  text-shadow: 0 0 1.5px whitesmoke;
+  filter: contrast(160%);
+  transform: scale(1.3);
+}
+#reset-btn:active {
+  background-color: rgb(203, 74, 51);
+}
