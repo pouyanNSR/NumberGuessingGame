@@ -96,24 +96,24 @@
     background-color: rgb(30, 105, 30);
   }
 }
-.para-container-styles{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 15px;
-    margin-left: 40px;
-    border-left: 3px solid rgb(170, 16, 16);
-    padding: 3px 20px;
+.para-container-styles {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  margin-left: 40px;
+  border-left: 3px solid rgb(170, 16, 16);
+  padding: 3px 20px;
 }
-.para-container-styles p{
-    padding: 0;
-    margin: 0;
+.para-container-styles p {
+  padding: 0;
+  margin: 0;
 }
-.loose-scene p:not(:last-child){
-    margin-left: 20px;
+.loose-scene p:not(:last-child) {
+  margin-left: 20px;
 }
 
-.para-container p:last-child{
+.para-container p:last-child {
 }
 .showRealNum {
   display: inline-block;

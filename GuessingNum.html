@@ -90,9 +90,9 @@
     </div>
     <br />
     <!-- for showing result -->
-    <div class="para-container ">
-      <p  id="guess-history"></p>
-      <p id="guess-counter"></p>
+    <div class="para-container">
+      <p id="guess-history"></p>
+      <p id="guess-count-text"></p>
       <p id="result-teller"></p>
     </div>
     <div class="reset">
@@ -105,35 +105,38 @@
       let modal = document.querySelector(".modal");
       let btnClose = document.querySelectorAll(".closed");
       let getNameBtn = document.querySelector(".getname");
-      debugger;
-      const Num = Math.floor(Math.random() * 100);
+      let namevalue = "";
+      let Num;
+      // debugger;
       let subField = document.querySelector("#subField");
       let guessField = document.querySelector("#guess-field");
-      let chance = 5;
+      let chance;
       let rulePara = document.getElementById("rule-para");
       let paraContainer = document.querySelector(".para-container");
       let inputContainer = document.getElementById("input-container");
 
       let guessHistory = document.getElementById("guess-history");
-      let guessCounter = document.getElementById("guess-counter");
+      let guessCountText = document.getElementById("guess-count-text");
       let resultTeller = document.getElementById("result-teller");
       let winnerAudio = document.querySelector(".Winner");
       let resetBtn = document.getElementById("reset-btn");
       let nameInput = document.querySelector(".name-input");
 
       // just for showing previous guesses
-      let guessCount = 1;
+      // IMPORTANT
+      let guessCount;
+      startGame();
 
-      (function () {
-        modal.style.display = "block";
-        modal.classList.add("faded");
-        nameInput.focus();
-        btnClose.forEach((item) => {
-          item.addEventListener("click", () => {
-            modal.style.display = "none";
-          });
-        });
-      })();
+      // (function () {
+      //   modal.style.display = "block";
+      //   modal.classList.add("faded");
+      //   nameInput.focus();
+      //   btnClose.forEach((item) => {
+      //     item.addEventListener("click", () => {
+      //       modal.style.display = "none";
+      //     });
+      //   });
+      // })();
 
       //close the modal with saving player name
       getNameBtn.addEventListener("click", () => {
@@ -154,12 +157,57 @@
         }
       });
 
+      function startGame() {
+        Num = Math.floor(Math.random() * 100);
+        chance = 5;
+        guessCount = 1
+
+        // reset input
+        guessField.value = "";
+        guessField.style = "";
+
+        // reset texts
+        guessHistory.innerHTML = "";
+        guessCountText.innerHTML = "";
+        resultTeller.innerHTML = "";
+
+
+        // reset UI
+        rulePara.style.display = "block";
+        inputContainer.style.display = "block";
+        subField.style.display = "block";
+        resetBtn.style.display = "none";
+        //added
+        guessCountText.style = "none"
+        resultTeller.style = "none"
+        paraContainer.classList.remove("loose-scene");
+        paraContainer.classList.add("para-container-styles");
+        guessHistory.classList.remove("showRealNum");
+
+
+        // حذف پیام برد یا باخت قبلی
+        document
+          .querySelectorAll(".changingBGC, .words")
+          .forEach((el) => el.remove());
+
+        // نمایش مودال دوباره
+        modal.style.display = "block";
+        modal.style.display = "block";
+        modal.classList.add("faded");
+        nameInput.focus();
+        btnClose.forEach((item) => {
+          item.addEventListener("click", () => {
+            modal.style.display = "none";
+          });
+        });
+      }
+
       function checkGeuss() {
         //check for empty guess
         if (guessField.value === "") {
           return;
         }
-        paraContainer.classList.add("para-container-styles")
+        paraContainer.classList.add("para-container-styles");
 
         let Guess = parseInt(guessField.value);
 
@@ -189,7 +237,7 @@
           // *When player Win*
           winnerAudio.play();
           guessHistory.style.display = "none";
-          guessCounter.style.display = "none";
+          guessCountText.style.display = "none";
           resultTeller.style.display = "none";
 
           guessField.style.fontSize = "33px";
@@ -231,17 +279,17 @@
         } else {
           //when player do not win and still continue the game
           chance--;
-          // guessCounter is an info for showing remaining chance
-          guessCounter.innerHTML = `<p> you have <span style="color:red">${chance}</span> Chance </p>`;
-          guessCounter.style.fontSize = "18px";
+          // guessCountText is an info for showing remaining chance
+          guessCountText.innerHTML = `<p> you have <span style="color:red">${chance}</span> Chance </p>`;
+          guessCountText.style.fontSize = "18px";
           // auto clear to write faster
           guessField.value = "";
           //for showing an alert which you are wrong.
 
           if (chance <= 0) {
             resultTeller.style.display = "none";
-            paraContainer.classList.remove("para-container-styles")
-            paraContainer.classList.add("loose-scene")
+            paraContainer.classList.remove("para-container-styles");
+            paraContainer.classList.add("loose-scene");
             function SoundH() {
               let vv = document.querySelector(".looser");
               vv.play();
@@ -254,13 +302,13 @@
             guessHistory.innerHTML =
               "Correct Number Was: " + "<span>" + Num + "</span>";
             guessHistory.style.fontSize = "29px";
-            guessCounter.innerHTML = "You have NO chance";
-            guessCounter.style.color = "red";
-            guessCounter.style.backgroundColor = "transparent";
-            guessCounter.style.fontSize = "18px";
-            guessCounter.style.textAlign = "left";
-            guessCounter.style.outline = "none";
-            guessCounter.style.marginLeft = "29px";
+            guessCountText.innerHTML = "You have NO chance";
+            guessCountText.style.color = "red";
+            guessCountText.style.backgroundColor = "transparent";
+            guessCountText.style.fontSize = "18px";
+            guessCountText.style.textAlign = "left";
+            guessCountText.style.outline = "none";
+            guessCountText.style.marginLeft = "29px";
 
             // Creating a div to show player that he lose
             let div = document.createElement("div");
@@ -274,7 +322,7 @@
             div.style.fontSize = "33px";
             div.style.padding = "18px";
             div.classList.add("words");
-            guessCounter.insertAdjacentElement("afterend", div);
+            guessCountText.insertAdjacentElement("afterend", div);
 
             resetBtn.style.display = "block";
           }
@@ -292,16 +340,16 @@
               resultTeller.style.fontSize = "27px";
             }
             // for showing you have only on chance,alerting!
-            guessCounter.innerHTML =
+            guessCountText.innerHTML =
               nameValue + "!" + " You Have Only " + chance + " Chance!";
-            guessCounter.style.textAlign = "center";
-            guessCounter.style.marginLeft = "0px";
-            guessCounter.style.outline = "3px solid black";
-            guessCounter.style.borderRadius = "4px";
-            guessCounter.style.backgroundColor = "rgb(185, 13, 13)";
-            guessCounter.style.padding = "9px";
-            guessCounter.style.fontSize = "29px";
-            guessCounter.style.color = "antiquewhite";
+            guessCountText.style.textAlign = "center";
+            guessCountText.style.marginLeft = "0px";
+            guessCountText.style.outline = "3px solid black";
+            guessCountText.style.borderRadius = "4px";
+            guessCountText.style.backgroundColor = "rgb(185, 13, 13)";
+            guessCountText.style.padding = "9px";
+            guessCountText.style.fontSize = "29px";
+            guessCountText.style.color = "antiquewhite";
           }
           // we should write these two first but we get problem
 
@@ -332,9 +380,7 @@
         guessCount++;
       }
       function reset() {
-        setTimeout(() => {
-          location.reload();
-        }, 400);
+        startGame();
       }
     </script>
   </body>
