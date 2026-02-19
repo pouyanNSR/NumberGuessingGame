@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="style.css" />
     <title>Document</title>
   </head>
-  <body class="body">
+  <body class="body" style="position: relative">
     <div class="modal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -57,7 +57,7 @@
         </div>
       </div>
     </div>
-    <audio class="looser" src="./voice/MediaBaz.net-Game - 02.mp3"></audio>
+    <audio class="loser-sound" src="./voice/MediaBaz.net-Game - 02.mp3"></audio>
     <audio
       class="Winner"
       src="./voice/ta-da-brass-ensemble-fast-soundroll-1-00-01.mp3"
@@ -99,18 +99,28 @@
       <button id="reset-btn" onclick="reset()">Try Again!</button>
     </div>
     <h3>made by Pouyan</h3>
+    <div class="game-info">
+      <p>Games Played: <span class="games-counter-span"></span></p>
+      <p>Correct Guess: <span class="correct-gusses-span"></span></p>
+    </div>
 
     <script src="./bootstrap.bundle.min.js"></script>
     <script>
       let modal = document.querySelector(".modal");
       let btnClose = document.querySelectorAll(".closed");
       let getNameBtn = document.querySelector(".getname");
+      let nameInput = document.querySelector(".name-input");
+      let gameInfo = document.querySelector(".game-info");
+      let gamesCounterSpan = document.querySelector(".games-counter-span");
+      let correctGussesSpan = document.querySelector(".correct-gusses-span");
       let namevalue = "";
       let Num;
-      // debugger;
+      let chance;
+      let gamesCounter = 0;
+      let correctGuesses = 0;
+
       let subField = document.querySelector("#subField");
       let guessField = document.querySelector("#guess-field");
-      let chance;
       let rulePara = document.getElementById("rule-para");
       let paraContainer = document.querySelector(".para-container");
       let inputContainer = document.getElementById("input-container");
@@ -119,25 +129,12 @@
       let guessCountText = document.getElementById("guess-count-text");
       let resultTeller = document.getElementById("result-teller");
       let winnerAudio = document.querySelector(".Winner");
+      let loserAudio = document.querySelector(".loser-sound");
       let resetBtn = document.getElementById("reset-btn");
-      let nameInput = document.querySelector(".name-input");
-
       // just for showing previous guesses
-      // IMPORTANT
       let guessCount;
+
       startGame();
-
-      // (function () {
-      //   modal.style.display = "block";
-      //   modal.classList.add("faded");
-      //   nameInput.focus();
-      //   btnClose.forEach((item) => {
-      //     item.addEventListener("click", () => {
-      //       modal.style.display = "none";
-      //     });
-      //   });
-      // })();
-
       //close the modal with saving player name
       getNameBtn.addEventListener("click", () => {
         nameValue = nameInput.value;
@@ -147,9 +144,9 @@
           event.preventDefault();
           modal.style.display = "none";
           nameValue = nameInput.value;
+          gameInfo.classList.add("over-layer")
         }
       });
-
       guessField.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
           event.preventDefault();
@@ -158,9 +155,16 @@
       });
 
       function startGame() {
+        gamesCounterSpan.textContent = gamesCounter;
+        correctGussesSpan.textContent = correctGuesses;
+        console.log(correctGuesses, "win in start game");
+        console.log(gamesCounter, "game in start game");
+
         Num = Math.floor(Math.random() * 100);
+        console.log(Num);
+
         chance = 5;
-        guessCount = 1
+        guessCount = 1;
 
         // reset input
         guessField.value = "";
@@ -171,26 +175,25 @@
         guessCountText.innerHTML = "";
         resultTeller.innerHTML = "";
 
-
         // reset UI
+        gameInfo.classList.remove("over-layer")
         rulePara.style.display = "block";
         inputContainer.style.display = "block";
         subField.style.display = "block";
         resetBtn.style.display = "none";
-        //added
-        guessCountText.style = "none"
-        resultTeller.style = "none"
-        paraContainer.classList.remove("loose-scene");
-        paraContainer.classList.add("para-container-styles");
+        guessCountText.style = "none";
+        resultTeller.style = "none";
+        paraContainer.style = "none";
+        paraContainer.classList.remove("lose-scene");
+        paraContainer.classList.remove("para-container-styles");
         guessHistory.classList.remove("showRealNum");
 
-
-        // حذف پیام برد یا باخت قبلی
+        // remove divs that made for showing player win/lose state
         document
           .querySelectorAll(".changingBGC, .words")
           .forEach((el) => el.remove());
 
-        // نمایش مودال دوباره
+        // showing modal
         modal.style.display = "block";
         modal.style.display = "block";
         modal.classList.add("faded");
@@ -198,6 +201,7 @@
         btnClose.forEach((item) => {
           item.addEventListener("click", () => {
             modal.style.display = "none";
+            gameInfo.classList.add("over-layer")
           });
         });
       }
@@ -221,24 +225,24 @@
         if (guessCount == 1) {
           guessHistory.innerHTML = "your Guesses were: ";
         }
+        // color of numbers in history part, depending on Guess
         if (Guess > Num) {
           guessSpan.classList.add("high-guess");
         } else if (Guess < Num) {
           guessSpan.classList.add("low-guess");
         }
         guessHistory.appendChild(guessSpan);
-
-        //an other way to do that
+        //an other way to do that instead of appendChild
         // guessHistory.innerHTML += `<span id="changer">${Guess}. </span>`
 
         //--------------------------------------------------------------------------------------------------------------------------------------------
 
+        // *When player Wins*
         if (Guess == Num) {
-          // *When player Win*
           winnerAudio.play();
-          guessHistory.style.display = "none";
-          guessCountText.style.display = "none";
-          resultTeller.style.display = "none";
+          paraContainer.style.display = "none";
+          correctGuesses++;
+          console.log(correctGuesses, "win");
 
           guessField.style.fontSize = "33px";
           guessField.style.fontWeight = "800";
@@ -260,42 +264,37 @@
             "Thaaaaaaaaaaaat's It! " + nameValue + " Win🏆"
           );
           div.appendChild(txt);
-          // let body =document.querySelector("body");
-          // body.appendChild(div);
-          // if you wanna uncomment these 3comments, remove the line below
+
           div.style.fontFamily =
             "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif";
           div.style.fontSize = "24px";
           div.style.fontFamily = "fantasy";
           div.style.letterSpacing = "3px";
-          div.style.marginTop = "50px";
+          div.style.marginTop = "30px";
           div.style.color = "antiquewhite";
           div.style.padding = "28px";
           div.classList.add("changingBGC");
           guessField.insertAdjacentElement("afterend", div);
-          // guessField.setAttribute(disabled)
 
-          // -----------------------------------------------------
+          resetBtn.classList.remove("loser");
+          resetBtn.classList.add("winner");
+          resetBtn.style.display = "block";
         } else {
           //when player do not win and still continue the game
           chance--;
           // guessCountText is an info for showing remaining chance
           guessCountText.innerHTML = `<p> you have <span style="color:red">${chance}</span> Chance </p>`;
           guessCountText.style.fontSize = "18px";
-          // auto clear to write faster
+          // auto clear input
           guessField.value = "";
-          //for showing an alert which you are wrong.
 
+          // *When player loses*
           if (chance <= 0) {
-            resultTeller.style.display = "none";
+            loserAudio.play();
             paraContainer.classList.remove("para-container-styles");
-            paraContainer.classList.add("loose-scene");
-            function SoundH() {
-              let vv = document.querySelector(".looser");
-              vv.play();
-            }
-            SoundH();
-            //When player lost his chance ,user lose!
+            paraContainer.classList.add("lose-scene");
+
+            resultTeller.style.display = "none";
             rulePara.style.display = "none";
             inputContainer.style.display = "none";
             guessHistory.classList.add("showRealNum");
@@ -324,22 +323,13 @@
             div.classList.add("words");
             guessCountText.insertAdjacentElement("afterend", div);
 
+            resetBtn.classList.remove("winner");
+            resetBtn.classList.add("loser");
             resetBtn.style.display = "block";
           }
           if (chance == 1) {
             //When player has only one chance
-            if (Guess < Num) {
-              let resultTeller = document.getElementById("result-teller");
-              resultTeller.innerHTML = "your guess is Low";
-              resultTeller.style.color = "rgb(12, 12, 186)";
-              resultTeller.style.fontSize = "27px";
-            } else if (Guess > Num) {
-              let resultTeller = document.getElementById("result-teller");
-              resultTeller.innerHTML = "your guess is High";
-              resultTeller.style.color = "rgb(121, 13, 13)";
-              resultTeller.style.fontSize = "27px";
-            }
-            // for showing you have only on chance,alerting!
+            //for showing you have only on chance,alerting!
             guessCountText.innerHTML =
               nameValue + "!" + " You Have Only " + chance + " Chance!";
             guessCountText.style.textAlign = "center";
@@ -351,8 +341,6 @@
             guessCountText.style.fontSize = "29px";
             guessCountText.style.color = "antiquewhite";
           }
-          // we should write these two first but we get problem
-
           if (Guess < Num) {
             // when player guess is under the correct number
             let resultTeller = document.getElementById("result-teller");
@@ -379,7 +367,9 @@
         guessField.focus();
         guessCount++;
       }
+
       function reset() {
+        gamesCounter++;
         startGame();
       }
     </script>
