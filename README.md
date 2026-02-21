@@ -60,7 +60,7 @@ Open the project folder.
 
 Run index.html in your browser.
 
-📚 What I Learned
+## 📚 What I Learned
 
 DOM manipulation in JavaScript
 
