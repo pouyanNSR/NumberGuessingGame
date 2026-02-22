@@ -4,7 +4,10 @@ A simple and interactive Number Guessing Game built using HTML, CSS, and JavaScr
 The game generates a random number and challenges the player to guess it with helpful feedback after each attempt.
 
 This project was created to practice JavaScript logic, DOM manipulation, and user interaction.
-
+<br/>
+<br/>
+![Game Screenshot](image/Screenshot.png)
+<br/>
 ## 🚀 Features
 
 ✅ Random number generation
